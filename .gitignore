@@ -1,0 +1,12 @@
+.vs/
+bin/
+obj/
+Debug/
+Release/
+*.user
+*.suo
+*.log
+*.vsidx
+_ReSharper*/
+.idea/
+packages/
