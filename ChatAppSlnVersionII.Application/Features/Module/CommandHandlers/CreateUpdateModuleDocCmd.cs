@@ -35,22 +35,31 @@ namespace ChatAppSlnVersionII.Application.Features.Module.CommandHandlers
         {
             var param = new DynamicParameters();
             Guid? docId = string.IsNullOrWhiteSpace(request.docId) ? (Guid?)null : Guid.Parse(request.docId);
-            param.Add("@p_docId", docId, DbType.Guid);
-            param.Add("@p_docMod", request.docMod);
-            param.Add("@p_docPrefix", request.docPrefix);
-            param.Add("@p_docDescription", request.docDescription);
-            param.Add("@p_docStartNumber", request.docStartNumber);
-            param.Add("@p_docLength", request.docLength);
-            param.Add("@p_docCurrentNumber", request.docCurrentNumber);
+            param.Add("@p_docid", docId, DbType.Guid);
+            param.Add("@p_docmod", request.docMod);
+            param.Add("@p_docprefix", request.docPrefix);
+            param.Add("@p_docdescription", request.docDescription);
+            param.Add("@p_docstartnumber", request.docStartNumber);
+            param.Add("@p_doclength", request.docLength);
+            param.Add("@p_doccurrentnumber", request.docCurrentNumber);
             param.Add("@p_user", request.docCreatedBy);
-            param.Add("@p_outDocId", dbType: DbType.Guid, direction: ParameterDirection.Output);
-            await _dataAccess.ExecuteAsync("CreateOrUpdateModuleDoc", param, true);
 
-            var outDocId = param.Get<Guid>("@p_outDocId");
+            string sql = @"
+                        SELECT create_or_update_module_doc(
+                            @p_docid,
+                            @p_docmod,
+                            @p_docprefix,
+                            @p_docdescription,
+                            @p_docstartnumber,
+                            @p_doclength,
+                            @p_doccurrentnumber,
+                            @p_user
+                        );";
 
-            return new SucessResult<string>(outDocId.ToString())
+            var res = await _dataAccess.ExecuteScalarAsync<Guid>(sql, param, false);
+            return new SucessResult<string>(res.ToString())
             {
-                Data = outDocId.ToString(),
+                Data = res.ToString(),
                 Message = "Success",
                 ResultType = ResultType.Success,
             };

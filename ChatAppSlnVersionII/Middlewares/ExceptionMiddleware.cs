@@ -1,5 +1,6 @@
 ﻿using ChatAppSlnVersionII.Shared.ApiResponses;
 using Microsoft.Data.SqlClient;
+using Npgsql;
 using System.Net;
 using System.Text.Json;
 using static ChatAppSlnVersionII.Shared.ExceptionHandler.ExceHandlers;
@@ -21,7 +22,7 @@ namespace ChatAppSlnVersionII.Middlewares
             {
                 await _next(context);
             }
-            catch (SqlException sqlEx)
+            catch (PostgresException sqlEx)
             {
                 await HandleExceptionAsync(context, sqlEx);
             }
@@ -40,7 +41,7 @@ namespace ChatAppSlnVersionII.Middlewares
                 ValidationExceptionBase customValidationEx => HandleCustomValidationExceptionAsync(context, customValidationEx),
                 NoContentException ncEx => HandleSimpleException(context, ncEx, HttpStatusCode.NoContent),
                 BadRequestException badEx => HandleSimpleException(context, badEx, HttpStatusCode.BadRequest),
-                SqlException pex => HandleSimpleException(context, pex, HttpStatusCode.InternalServerError),
+                PostgresException pex => HandleSimpleException(context, pex, HttpStatusCode.InternalServerError),
                 _ => HandleSimpleException(context, ex, HttpStatusCode.InternalServerError, "Something went wrong.")
             };
         }

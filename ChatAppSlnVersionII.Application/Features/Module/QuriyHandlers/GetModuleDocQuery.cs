@@ -29,7 +29,9 @@ namespace ChatAppSlnVersionII.Application.Features.Module.QuriyHandlers
             var para = new DynamicParameters();
             para.Add("@p_search", request.p_search);
 
-            var res = await _dataAccess.ExecuteListAsync<GetModuleDocDto>("GetModuleDoc", para, true);
+            var sql= @"SELECT * FROM get_module_doc(@p_search);";
+
+            var res = await _dataAccess.ExecuteListAsync<GetModuleDocDto>(sql, para, false);
             return new SucessResult<List<GetModuleDocDto>>(res)
             {
                 Data =res,

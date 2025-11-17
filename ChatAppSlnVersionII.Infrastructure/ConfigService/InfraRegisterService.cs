@@ -5,6 +5,7 @@ using ChatAppSlnVersionII.Infrastructure.Persistence;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -18,15 +19,17 @@ namespace ChatAppSlnVersionII.Infrastructure.ConfigService
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            var dbSettingsSection = configuration.GetSection("DatabaseSettings");
-            services.Configure<DatabaseSettings>(dbSettingsSection);
+            //var dbSettingsSection = configuration.GetSection("DatabaseSettings");
+            //services.Configure<DatabaseSettings>(dbSettingsSection);
 
-            var dbSettings = dbSettingsSection.Get<DatabaseSettings>() ?? new DatabaseSettings();
-            services.AddSingleton(dbSettings);
+            //var dbSettings = dbSettingsSection.Get<DatabaseSettings>() ?? new DatabaseSettings();
+            //services.AddSingleton(dbSettings);
 
-            var connectionString = dbSettings.BuildConnectionString();
+            //var connectionString = dbSettings.BuildConnectionString();
 
-            services.AddScoped<IDbConnection>(_ => new SqlConnection(connectionString));
+            var connectionString = configuration.GetConnectionString("SupabaseDb");
+
+            services.AddScoped<IDbConnection>(_ => new NpgsqlConnection(connectionString));
             services.AddScoped<IDataAccess, DataAccess>();
             return services;
         }

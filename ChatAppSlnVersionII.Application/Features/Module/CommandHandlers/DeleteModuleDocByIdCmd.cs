@@ -27,9 +27,9 @@ namespace ChatAppSlnVersionII.Application.Features.Module.CommandHandlers
         public async Task<IApiResult> Handle(DeleteModuleDocByIdCmd request, CancellationToken cancellationToken)
         {
             var para = new DynamicParameters();
-            para.Add("@p_docId", request.Id);
-
-            var res = await _dataAccess.ExecuteAsync("DeleteModuleDocById", para, true);
+            para.Add("@p_docid", request.Id);
+            var psql= "select delete_module_doc_by_id(@p_docid);";
+            var res = await _dataAccess.ExecuteAsync(psql, para, false);
             return new BaseApiExeResult
             {
                 Message="Success",
