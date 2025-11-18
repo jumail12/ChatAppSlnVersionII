@@ -27,7 +27,8 @@ namespace ChatAppSlnVersionII.Application.Features.RoleGroup.QueryHandlers
         {
             var para = new DynamicParameters();
             para.Add("@p_search", request.p_search);
-            var res = await _dataAccess.ExecuteListAsync<RoleGroupDto>("GetRoleGroups", para,true);
+            var sql= @"SELECT * FROM get_role_groups(@p_search);";
+            var res = await _dataAccess.ExecuteListAsync<RoleGroupDto>(sql, para,false);
             return new SucessResult<List<RoleGroupDto>>(res)
             {
                 Data = res,

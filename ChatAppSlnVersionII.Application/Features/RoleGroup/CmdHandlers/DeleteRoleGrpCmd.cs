@@ -2,11 +2,7 @@
 using ChatAppSlnVersionII.Shared.ApiResponses;
 using Dapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ChatAppSlnVersionII.Application.Features.RoleGroup.CmdHandlers
 {
@@ -29,7 +25,9 @@ namespace ChatAppSlnVersionII.Application.Features.RoleGroup.CmdHandlers
             para.Add("@p_role_id", request.role_id);
             para.Add("@p_user", "Admin");
 
-            var res = await _dataAccess.ExecuteAsync("DeleteRoleGroupById", para, true);
+            var psql= "select delete_role_group_byid(@p_role_id, @p_user);";
+
+            var res = await _dataAccess.ExecuteAsync(psql, para, false);
             return new BaseApiExeResult
             {
                 Message="Susccess",
