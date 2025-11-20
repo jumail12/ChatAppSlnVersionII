@@ -23,6 +23,13 @@ namespace ChatAppSlnVersionII.Controllers.UserAuth
             return result;
         }
 
+        [HttpPost("UserLogin")]
+        public async Task<IApiResult> UserLogin([FromBody] UserLoginCmd command)
+        {
+            var result = await _mediator.Send(command);
+            return result;
+        }
+
         [HttpGet]
         public async Task<IApiResult> GetUser([FromQuery] GetUserQuery data)
         {
