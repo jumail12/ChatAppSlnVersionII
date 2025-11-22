@@ -21,4 +21,15 @@ namespace ChatAppSlnVersionII.Application.Dtos.Previlage
         public string? prv_description { get; set; }
         public string? prg_group { get; set; }
     }
+
+    public class roleprevilages_byuserid_dto
+    {
+        public string? rpm_id { get; set; }
+        public string? rpm_role_id { get; set; }
+        public string? rpm_privilage_id { get; set; }
+        public string? prv_privilegename { get; set; }
+        public string? prg_group { get; set; }
+        public bool rpm_is_granted { get; set; }
+    }
+
 }
