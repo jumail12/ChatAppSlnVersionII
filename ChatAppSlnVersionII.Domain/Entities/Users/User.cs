@@ -39,4 +39,22 @@ namespace ChatAppSlnVersionII.Domain.Entities.Users
         public DateTime? d_user_deletedat { get; set; }
     }
 
+
+    public class user_auth
+    {
+        public string token_id { get; set; }
+        public string user_id { get; set; }
+        public string access_token { get; set; }
+        public string refresh_token { get; set; }
+        public DateTime exp_at { get; set; }
+        public DateTime created_at { get; set; }
+        public DateTime updated_at { get; set; }
+        public DateTime deleted_at { get; set; }
+        public string created_by { get; set; }
+        public string updated_by { get; set; }
+        public string deleted_by { get; set; }
+        public bool? is_deleted { get; set; }
+    }
+
+
 }

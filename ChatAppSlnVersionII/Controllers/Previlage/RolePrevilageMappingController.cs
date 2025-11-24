@@ -28,5 +28,12 @@ namespace ChatAppSlnVersionII.Controllers.Previlage
             var result = await _mediator.Send(new GetRolePrivilageByUserIdQuery(userId));
             return Ok(result);
         }
+
+        [HttpPost("delete")]
+        public async Task<IActionResult> DeleteRolePrvilageMappingById([FromQuery] DeleteRolePrvilageMappingByIdCmd data)
+        {
+            var result = await _mediator.Send(data);
+            return Ok(result);
+        }
     }
 }

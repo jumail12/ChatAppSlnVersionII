@@ -1,5 +1,7 @@
 ﻿using ChatAppSlnVersionII.Domain.Interfaces;
 using Dapper;
+using Microsoft.Extensions.Configuration;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,15 +13,27 @@ namespace ChatAppSlnVersionII.Infrastructure.Persistence
 {
     public class DataAccess : IDataAccess
     {
-        private readonly IDbConnection _dbConnection;
-        public DataAccess(IDbConnection dbConnection)
+        //private readonly IDbConnection _dbConnection;
+        //public DataAccess(IDbConnection dbConnection)
+        //{
+        //    _dbConnection = dbConnection;
+        //}
+
+        //private IDbConnection CreateConnection()
+        //{
+        //    return _dbConnection;
+        //}
+        private readonly string _connectionString;
+        private readonly IConfiguration _configuration;
+        public DataAccess(IConfiguration configuration)
         {
-            _dbConnection = dbConnection;
+            _configuration = configuration;
+            _connectionString = _configuration.GetConnectionString("SupabaseDb");
         }
 
         private IDbConnection CreateConnection()
         {
-            return _dbConnection;
+            return new NpgsqlConnection(_connectionString);
         }
 
         public async Task<int> ExecuteAsync(string sql, DynamicParameters parameters = null, bool isProcedure = false)

@@ -45,4 +45,36 @@ namespace ChatAppSlnVersionII.Application.Features.Previlage.Mapping.Cmd
             };
         }
     }
+
+
+
+
+    //-- delete role previlage mapping by id    
+    public class DeleteRolePrvilageMappingByIdCmd : IRequest<IApiResult>
+    {
+        public string rpm_id { get; set; }
+        public string? user { get; set; }
+    }
+
+    public class DeleteRolePrvilageMappingByIdHandler : IRequestHandler<DeleteRolePrvilageMappingByIdCmd, IApiResult>
+    {
+        private readonly IDataAccess _dataAccess;
+        public DeleteRolePrvilageMappingByIdHandler(IDataAccess dataAccess)
+        {
+            _dataAccess = dataAccess;
+        }
+        public async Task<IApiResult> Handle(DeleteRolePrvilageMappingByIdCmd request, CancellationToken cancellationToken)
+        {
+            var para = new DynamicParameters();
+            para.Add("@p_rpm_id", request.rpm_id);
+            para.Add("@p_user", request.user);
+            var psql= "select delete_role_privilage_by_id(@p_rpm_id,@p_user);";
+            var res=await _dataAccess.ExecuteAsync(psql, para, false);
+            return new BaseApiExeResult
+            {
+                Message = "Role Privilage Mapping Deleted Successfully",
+                ResultType = ResultType.Success
+            };
+        }
+    }
 }

@@ -27,9 +27,9 @@ namespace ChatAppSlnVersionII.Infrastructure.ConfigService
 
             //var connectionString = dbSettings.BuildConnectionString();
 
-            var connectionString = configuration.GetConnectionString("SupabaseDb");
+            //var connectionString = configuration.GetConnectionString("SupabaseDb");
 
-            services.AddScoped<IDbConnection>(_ => new NpgsqlConnection(connectionString));
+            //services.AddScoped<IDbConnection>(_ => new NpgsqlConnection(connectionString));
             services.AddScoped<IDataAccess, DataAccess>();
             return services;
         }
