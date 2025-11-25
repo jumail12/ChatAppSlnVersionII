@@ -1,0 +1,6 @@
+services:
+  chatappslnversionii:
+    image: ${DOCKER_REGISTRY-}chatappslnversionii
+    build:
+      context: .
+      dockerfile: ChatAppSlnVersionII/Dockerfile
