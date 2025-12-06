@@ -3,6 +3,7 @@ using ChatAppSlnVersionII.Domain.Interfaces;
 using ChatAppSlnVersionII.Shared.ApiResponses;
 using Dapper;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,8 @@ namespace ChatAppSlnVersionII.Application.Features.Previlage.PrevilageGroup.Quer
             {
                 Data = res,
                 Message =res.Count>0? "Success" : "No data",
-                ResultType = res.Count > 0 ? ResultType.Success : ResultType.NoData
+                ResultType = res.Count > 0 ? ResultType.Success : ResultType.NoData,
+                StatusCode = res.Count > 0 ? StatusCodes.Status200OK : StatusCodes.Status204NoContent
             };
         }
     }

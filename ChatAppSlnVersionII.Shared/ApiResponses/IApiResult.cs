@@ -10,11 +10,13 @@ namespace ChatAppSlnVersionII.Shared.ApiResponses
     {
         ResultType ResultType { get; set; }
         string Message { get; set; }
+        public int StatusCode { get; set; }
     }
     public class BaseApiExeResult : IApiResult
     {
         public ResultType ResultType { get; set; }
         public string Message { get; set; }
+        public int StatusCode { get; set; }
     }
 
     public class SucessResult<T> : IApiResult
@@ -26,6 +28,7 @@ namespace ChatAppSlnVersionII.Shared.ApiResponses
         public ResultType ResultType { get; set; }
         public string Message { get; set; }
         public T Data { get; set; }
+        public int StatusCode { get; set; }
     }
 
 
@@ -33,6 +36,7 @@ namespace ChatAppSlnVersionII.Shared.ApiResponses
     {
         public ResultType ResultType { get; set; }
         public string Message { get; set; }
+        public int StatusCode { get; set; }
         public PaginationResultData<T>? ResultData { get; set; }
 
     }
@@ -48,6 +52,7 @@ namespace ChatAppSlnVersionII.Shared.ApiResponses
         public ResultType ResultType { get; set; }
         public string Message { get; set; }
         public ResultData<T> Result { get; set; }
+        public int StatusCode { get; set; }
     }
 
     public class ResultData<T>
@@ -61,7 +66,7 @@ namespace ChatAppSlnVersionII.Shared.ApiResponses
         public string Message { get; set; }
         public string Error { get; set; }
         public List<T> Errors { get; set; }
-        public int? StatusCode { get; set; }
+        public int StatusCode { get; set; }
     }
 
     public class ApiExceptionResponse : IApiResult
@@ -69,7 +74,7 @@ namespace ChatAppSlnVersionII.Shared.ApiResponses
         public ResultType ResultType { get; set; }
         public string Message { get; set; }
         public string Error { get; set; }
-        public int? StatusCode { get; set; }
+        public int StatusCode { get; set; }
     }
 
 
@@ -86,6 +91,8 @@ namespace ChatAppSlnVersionII.Shared.ApiResponses
         ValidationException,
         NotFound,
         NoData,
-        Error
+        Error,
+        UnAuthorized,
+        Forbidden
     }
 }

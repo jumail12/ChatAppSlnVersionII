@@ -1,6 +1,7 @@
 ﻿using ChatAppSlnVersionII.Domain.Interfaces;
 using ChatAppSlnVersionII.Shared.ApiResponses;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +40,8 @@ namespace ChatAppSlnVersionII.Application.Features.Previlage.Previlages.Cmd
             {
                 Data = res.ToString(),
                 Message = "Success",
-                ResultType = ResultType.Success
+                ResultType = ResultType.Success,
+                StatusCode = StatusCodes.Status200OK
             };
         }
     }

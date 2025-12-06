@@ -2,12 +2,9 @@
 using ChatAppSlnVersionII.Shared.ApiResponses;
 using Dapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ChatAppSlnVersionII.Application.Features.Module.CommandHandlers
 {
@@ -62,6 +59,7 @@ namespace ChatAppSlnVersionII.Application.Features.Module.CommandHandlers
                 Data = res.ToString(),
                 Message = "Success",
                 ResultType = ResultType.Success,
+                StatusCode= StatusCodes.Status200OK
             };
         }
 

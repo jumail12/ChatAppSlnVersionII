@@ -2,6 +2,7 @@
 using ChatAppSlnVersionII.Shared.ApiResponses;
 using Dapper;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,8 @@ namespace ChatAppSlnVersionII.Application.Features.UserAuth.cmdHnadlers
             {
                 ResultType = ResultType.Success,
                 Message = "User created/updated successfully",
-                Data = result.ToString()
+                Data = result.ToString(),
+                StatusCode = StatusCodes.Status200OK
             };
         }
     }

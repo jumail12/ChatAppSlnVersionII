@@ -3,6 +3,7 @@ using ChatAppSlnVersionII.Domain.Interfaces;
 using ChatAppSlnVersionII.Shared.ApiResponses;
 using Dapper;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,8 @@ namespace ChatAppSlnVersionII.Application.Features.Module.CommandHandlers
             return new BaseApiExeResult
             {
                 Message="Success",
-                ResultType=ResultType.Success
+                ResultType=ResultType.Success,
+                StatusCode= StatusCodes.Status200OK
             };
         }
     }

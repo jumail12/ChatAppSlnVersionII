@@ -2,6 +2,7 @@
 using ChatAppSlnVersionII.Application.Features.Module.QuriyHandlers;
 using ChatAppSlnVersionII.Shared.ApiResponses;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,7 @@ namespace ChatAppSlnVersionII.Controllers.ModuleDoc
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IApiResult> CreateOrUpdate([FromBody] CreateUpdateModuleDocCmd _data)
         {
             var res = await _mediator.Send(_data);
@@ -25,6 +27,7 @@ namespace ChatAppSlnVersionII.Controllers.ModuleDoc
         }
 
         [HttpGet("moduledocs")]
+        [Authorize]
         public async Task<IApiResult> GetData([FromQuery] GetModuleDocQuery data)
         {
             var res = await _mediator.Send(data);
@@ -32,6 +35,7 @@ namespace ChatAppSlnVersionII.Controllers.ModuleDoc
         }
 
         [HttpPost("Delete")]
+        [Authorize]
         public async Task<IApiResult> Delete([FromQuery] DeleteModuleDocByIdCmd data)
         {
             return await _mediator.Send(data);

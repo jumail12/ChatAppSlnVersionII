@@ -2,6 +2,7 @@
 using ChatAppSlnVersionII.Shared.ApiResponses;
 using Dapper;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 
 namespace ChatAppSlnVersionII.Application.Features.RoleGroup.CmdHandlers
@@ -35,7 +36,8 @@ namespace ChatAppSlnVersionII.Application.Features.RoleGroup.CmdHandlers
             {
                 Message="Success",
                 ResultType=ResultType.Success,
-                Data=res.ToString() 
+                Data=res.ToString() ,
+                StatusCode = StatusCodes.Status200OK
             };
         }
     }

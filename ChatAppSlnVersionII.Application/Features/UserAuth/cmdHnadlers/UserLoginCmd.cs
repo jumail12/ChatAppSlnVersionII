@@ -5,6 +5,7 @@ using ChatAppSlnVersionII.Domain.Interfaces;
 using ChatAppSlnVersionII.Shared.ApiResponses;
 using Dapper;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -43,11 +44,10 @@ namespace ChatAppSlnVersionII.Application.Features.UserAuth.cmdHnadlers
             var psql = "select f_user_login(@p_user_email,@p_user_password)";
             var result = await _dataAccess.ExecuteScalarAsync<string>(psql, para, false);
 
-            // get JWT config
             var jwtKey = _configuration["JwtSettings:Key"];
             int expmin = Convert.ToInt32(_configuration["JwtSettings:ExpiryMinutes"]);
 
-            // generate tokens
+
             string accessToken = GenerateJwtToken(jwtKey, result, request.p_userEmail, expmin);
             string refreshToken = GenerateRefreshToken();
 
@@ -92,7 +92,8 @@ namespace ChatAppSlnVersionII.Application.Features.UserAuth.cmdHnadlers
             {
                 Message = "User logged in successfully",
                 ResultType = ResultType.Success,
-                Data = loginResponse
+                Data = loginResponse,
+                StatusCode = StatusCodes.Status200OK
             };
         }
 

@@ -3,6 +3,7 @@ using ChatAppSlnVersionII.Domain.Interfaces;
 using ChatAppSlnVersionII.Shared.ApiResponses;
 using Dapper;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,8 @@ namespace ChatAppSlnVersionII.Application.Features.UserAuth.queryHandlers
             {
                 ResultType =res.Count>0? ResultType.Success : ResultType.NoData,
                 Message = res.Count > 0 ? "User details fetched successfully":"No data",
-                Data = res
+                Data = res,
+                StatusCode = StatusCodes.Status200OK
             };
         }
     }

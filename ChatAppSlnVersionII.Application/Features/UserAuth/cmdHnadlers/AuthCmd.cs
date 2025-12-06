@@ -2,6 +2,7 @@
 using ChatAppSlnVersionII.Domain.Interfaces;
 using ChatAppSlnVersionII.Shared.ApiResponses;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +44,8 @@ namespace ChatAppSlnVersionII.Application.Features.UserAuth.cmdHnadlers
             {
                 ResultType = ResultType.Success,
                 Message = "User authentication record created/updated successfully.",
-                Data= res
+                Data= res,
+                StatusCode = StatusCodes.Status200OK
             };
         }
     }
@@ -67,9 +69,12 @@ namespace ChatAppSlnVersionII.Application.Features.UserAuth.cmdHnadlers
             var res = await _dataAccess.ExecuteListAsync<AuthGetByUserId>(psql, pparams, false);
             return new SucessResult<List<AuthGetByUserId>>(res)
             {
-                ResultType = ResultType.Success,
-                Message = "User authentication records fetched successfully.",
-                Data = res
+                ResultType =res.Count>0? ResultType.Success : ResultType.NoData,
+                Message = res.Count > 0 ? "User authentication records fetched successfully.":"No Data",
+                Data = res,
+                StatusCode = res.Count > 0 ? StatusCodes.Status200OK : StatusCodes.Status204NoContent
+
+
             };
         }
     }
@@ -93,9 +98,10 @@ namespace ChatAppSlnVersionII.Application.Features.UserAuth.cmdHnadlers
             var res = await _dataAccess.ExecuteListAsync<AuthGetByUserId>(psql, pparams, false);
             return new SucessResult<List<AuthGetByUserId>>(res)
             {
-                ResultType = ResultType.Success,
-                Message = "Success.",
-                Data = res
+                ResultType =res.Count>0? ResultType.Success : ResultType.NoData,
+                Message = res.Count > 0 ? "Success." : "No Data",
+                Data = res,
+                StatusCode = res.Count > 0 ? StatusCodes.Status200OK : StatusCodes.Status204NoContent
             };
         }
     }
@@ -121,9 +127,10 @@ namespace ChatAppSlnVersionII.Application.Features.UserAuth.cmdHnadlers
             var res = await _dataAccess.ExecuteListAsync<AuthGetByUserId>(psql, pparams, false);
             return new SucessResult<List<AuthGetByUserId>>(res)
             {
-                ResultType = ResultType.Success,
-                Message = "Success.",
-                Data = res
+                ResultType = res.Count > 0 ? ResultType.Success : ResultType.NoData,
+                Message = res.Count > 0 ? "Success.": "No Data",
+                Data = res,
+                StatusCode = res.Count > 0 ? StatusCodes.Status200OK : StatusCodes.Status204NoContent
             };
         }
     }
@@ -155,6 +162,7 @@ namespace ChatAppSlnVersionII.Application.Features.UserAuth.cmdHnadlers
             {
                 ResultType = ResultType.Success,
                 Message = "User authentication record deleted successfully.",
+                StatusCode = StatusCodes.Status200OK
             };
         }
     }
