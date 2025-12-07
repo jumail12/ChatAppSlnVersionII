@@ -113,9 +113,7 @@ namespace ChatAppSlnVersionII
                       };
                   });
 
-            var corsOrigins = builder.Configuration
-                .GetSection("CorsOrigins")
-                .Get<string[]>();
+            var corsOrigins = builder.Configuration.GetSection("CorsOrigins").Get<string[]>();
 
             builder.Services.AddCors(options =>
             {
@@ -123,11 +121,9 @@ namespace ChatAppSlnVersionII
                 {
                     policy.WithOrigins(corsOrigins!)
                           .AllowAnyHeader()
-                          .AllowAnyMethod()
-                          .AllowCredentials();
+                          .AllowAnyMethod();
                 });
             });
-
 
             builder.Services.AddInfrastructure(builder.Configuration);
             builder.Services.ApplicationRegisterService(builder.Configuration);
