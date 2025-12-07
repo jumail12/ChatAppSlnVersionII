@@ -113,6 +113,20 @@ namespace ChatAppSlnVersionII
                       };
                   });
 
+            var corsOrigins = builder.Configuration
+                .GetSection("CorsOrigins")
+                .Get<string[]>();
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.WithOrigins(corsOrigins!)
+                          .AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .AllowCredentials();
+                });
+            });
 
 
             builder.Services.AddInfrastructure(builder.Configuration);
@@ -125,14 +139,13 @@ namespace ChatAppSlnVersionII
                 app.UseSwagger();
                 app.UseSwaggerUI();
             //}
+            app.UseCors("AllowAll");
             app.UseHttpsRedirection();
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
-
             app.Run();
-
         }
     }
 }
