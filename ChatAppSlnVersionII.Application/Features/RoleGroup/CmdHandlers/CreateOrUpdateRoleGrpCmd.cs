@@ -37,7 +37,6 @@ namespace ChatAppSlnVersionII.Application.Features.RoleGroup.CmdHandlers
                 Message="Success",
                 ResultType=ResultType.Success,
                 Data=res.ToString() ,
-                StatusCode = StatusCodes.Status200OK
             };
         }
     }

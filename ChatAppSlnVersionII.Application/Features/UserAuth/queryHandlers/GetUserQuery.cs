@@ -34,7 +34,6 @@ namespace ChatAppSlnVersionII.Application.Features.UserAuth.queryHandlers
                 ResultType =res.Count>0? ResultType.Success : ResultType.NoData,
                 Message = res.Count > 0 ? "User details fetched successfully":"No data",
                 Data = res,
-                StatusCode = StatusCodes.Status200OK
             };
         }
     }

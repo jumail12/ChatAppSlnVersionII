@@ -35,7 +35,6 @@ namespace ChatAppSlnVersionII.Application.Features.Module.CommandHandlers
             {
                 Message="Success",
                 ResultType=ResultType.Success,
-                StatusCode= StatusCodes.Status200OK
             };
         }
     }

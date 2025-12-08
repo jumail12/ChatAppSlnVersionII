@@ -45,7 +45,6 @@ namespace ChatAppSlnVersionII.Application.Features.UserAuth.cmdHnadlers
                 ResultType = ResultType.Success,
                 Message = "User authentication record created/updated successfully.",
                 Data= res,
-                StatusCode = StatusCodes.Status200OK
             };
         }
     }
@@ -72,7 +71,6 @@ namespace ChatAppSlnVersionII.Application.Features.UserAuth.cmdHnadlers
                 ResultType =res.Count>0? ResultType.Success : ResultType.NoData,
                 Message = res.Count > 0 ? "User authentication records fetched successfully.":"No Data",
                 Data = res,
-                StatusCode = res.Count > 0 ? StatusCodes.Status200OK : StatusCodes.Status204NoContent
 
 
             };
@@ -101,7 +99,6 @@ namespace ChatAppSlnVersionII.Application.Features.UserAuth.cmdHnadlers
                 ResultType =res.Count>0? ResultType.Success : ResultType.NoData,
                 Message = res.Count > 0 ? "Success." : "No Data",
                 Data = res,
-                StatusCode = res.Count > 0 ? StatusCodes.Status200OK : StatusCodes.Status204NoContent
             };
         }
     }
@@ -130,7 +127,6 @@ namespace ChatAppSlnVersionII.Application.Features.UserAuth.cmdHnadlers
                 ResultType = res.Count > 0 ? ResultType.Success : ResultType.NoData,
                 Message = res.Count > 0 ? "Success.": "No Data",
                 Data = res,
-                StatusCode = res.Count > 0 ? StatusCodes.Status200OK : StatusCodes.Status204NoContent
             };
         }
     }
@@ -162,7 +158,6 @@ namespace ChatAppSlnVersionII.Application.Features.UserAuth.cmdHnadlers
             {
                 ResultType = ResultType.Success,
                 Message = "User authentication record deleted successfully.",
-                StatusCode = StatusCodes.Status200OK
             };
         }
     }

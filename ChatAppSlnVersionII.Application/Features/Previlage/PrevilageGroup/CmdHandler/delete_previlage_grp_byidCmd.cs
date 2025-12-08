@@ -30,7 +30,6 @@ namespace ChatAppSlnVersionII.Application.Features.Previlage.PrevilageGroup.CmdH
             {
                 Message = "Success",
                 ResultType = ResultType.Success,
-                StatusCode = StatusCodes.Status200OK
             };
         }
     }

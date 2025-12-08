@@ -33,7 +33,6 @@ namespace ChatAppSlnVersionII.Application.Features.RoleGroup.CmdHandlers
             {
                 Message="Susccess",
                 ResultType=ResultType.Success,
-                StatusCode = StatusCodes.Status200OK
             };
         }
     }

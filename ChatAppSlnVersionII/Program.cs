@@ -85,7 +85,6 @@ namespace ChatAppSlnVersionII
                                   ResultType = ResultType.UnAuthorized,
                                   Message = "Unauthorized",
                                   Error = "Token is missing or invalid",
-                                  StatusCode = StatusCodes.Status401Unauthorized
                               };
 
                               return context.Response.WriteAsync(
@@ -103,7 +102,6 @@ namespace ChatAppSlnVersionII
                                   ResultType = ResultType.Forbidden,
                                   Message = "Access denied",
                                   Error = "You do not have permission to access this resource",
-                                  StatusCode = StatusCodes.Status403Forbidden
                               };
 
                               return context.Response.WriteAsync(

@@ -59,7 +59,6 @@ namespace ChatAppSlnVersionII.Application.Features.Module.CommandHandlers
                 Data = res.ToString(),
                 Message = "Success",
                 ResultType = ResultType.Success,
-                StatusCode= StatusCodes.Status200OK
             };
         }
 

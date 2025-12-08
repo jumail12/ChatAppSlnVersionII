@@ -93,7 +93,6 @@ namespace ChatAppSlnVersionII.Application.Features.UserAuth.cmdHnadlers
                 Message = "User logged in successfully",
                 ResultType = ResultType.Success,
                 Data = loginResponse,
-                StatusCode = StatusCodes.Status200OK
             };
         }
 

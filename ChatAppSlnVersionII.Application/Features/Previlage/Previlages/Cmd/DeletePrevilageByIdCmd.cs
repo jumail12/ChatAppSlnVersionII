@@ -29,7 +29,6 @@ namespace ChatAppSlnVersionII.Application.Features.Previlage.Previlages.Cmd
             {
                 Message = "Success",
                 ResultType = ResultType.Success,
-                StatusCode = StatusCodes.Status200OK
             };
         }
     }

@@ -43,7 +43,6 @@ namespace ChatAppSlnVersionII.Application.Features.Previlage.Mapping.Cmd
                 Data = res,
                 Message = "Role Privilage Mapping Created/Updated Successfully",
                 ResultType = ResultType.Success,
-                StatusCode=StatusCodes.Status200OK
             };
         }
     }
@@ -76,7 +75,6 @@ namespace ChatAppSlnVersionII.Application.Features.Previlage.Mapping.Cmd
             {
                 Message = "Role Privilage Mapping Deleted Successfully",
                 ResultType = ResultType.Success,
-                StatusCode = StatusCodes.Status200OK
             };
         }
     }

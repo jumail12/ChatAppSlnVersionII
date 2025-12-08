@@ -48,7 +48,7 @@ namespace ChatAppSlnVersionII.Middlewares
 
         private Task HandleCustomValidationExceptionAsync(HttpContext context, ValidationExceptionBase ex)
         {
-            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            context.Response.StatusCode = 200;
 
             var errorList = ex.Errors
                 .Select(kvp => new FieldError
@@ -61,7 +61,6 @@ namespace ChatAppSlnVersionII.Middlewares
             var response = new ApiExceptionResponse<FieldError>
             {
                 ResultType = ResultType.ValidationException,
-                StatusCode = context.Response.StatusCode,
                 Message = "Validation Error",
                 Error = ex.InnerException?.Message ?? ex.Message,
                 Errors = errorList
@@ -72,14 +71,13 @@ namespace ChatAppSlnVersionII.Middlewares
 
         private Task HandleSimpleException(HttpContext context, Exception ex, HttpStatusCode statusCode, string defaultMessage = null)
         {
-            context.Response.StatusCode = (int)statusCode;
+            context.Response.StatusCode =200;
 
             if (statusCode == HttpStatusCode.NoContent)
                 return Task.CompletedTask;
 
             var response = new ApiExceptionResponse
             {
-                StatusCode = context.Response.StatusCode,
                 ResultType = ResultType.Error,
                 Message = defaultMessage ?? "Error occurred",
                 Error = ex.InnerException?.Message ?? ex.Message

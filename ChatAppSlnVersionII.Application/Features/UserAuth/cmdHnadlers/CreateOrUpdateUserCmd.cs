@@ -42,7 +42,6 @@ namespace ChatAppSlnVersionII.Application.Features.UserAuth.cmdHnadlers
                 ResultType = ResultType.Success,
                 Message = "User created/updated successfully",
                 Data = result.ToString(),
-                StatusCode = StatusCodes.Status200OK
             };
         }
     }

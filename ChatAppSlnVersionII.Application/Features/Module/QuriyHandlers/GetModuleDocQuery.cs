@@ -38,7 +38,6 @@ namespace ChatAppSlnVersionII.Application.Features.Module.QuriyHandlers
                 Data =res,
                 Message=res.Count>0? "Success": "No data",
                 ResultType = res.Count > 0 ? ResultType.Success : ResultType.NoData,
-                StatusCode=res.Count>0? StatusCodes.Status200OK : StatusCodes.Status204NoContent
             };
         }
     }

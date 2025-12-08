@@ -41,7 +41,6 @@ namespace ChatAppSlnVersionII.Application.Features.Previlage.Previlages.Cmd
                 Data = res.ToString(),
                 Message = "Success",
                 ResultType = ResultType.Success,
-                StatusCode = StatusCodes.Status200OK
             };
         }
     }
