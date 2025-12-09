@@ -58,12 +58,12 @@ namespace ChatAppSlnVersionII.Middlewares
                 })
                 .ToList();
 
-            var response = new ApiExceptionResponse<FieldError>
+            var response = new 
             {
-                ResultType = ResultType.ValidationException,
-                Message = "Validation Error",
-                Error = ex.InnerException?.Message ?? ex.Message,
-                Errors = errorList
+                resultType = ResultType.ValidationException,
+                message = "Validation Error",
+                error = ex.InnerException?.Message ?? ex.Message,
+                errors = errorList
             };
 
             return context.Response.WriteAsync(JsonSerializer.Serialize(response));
@@ -76,11 +76,11 @@ namespace ChatAppSlnVersionII.Middlewares
             if (statusCode == HttpStatusCode.NoContent)
                 return Task.CompletedTask;
 
-            var response = new ApiExceptionResponse
+            var response = new 
             {
-                ResultType = ResultType.Error,
-                Message = defaultMessage ?? "Error occurred",
-                Error = ex.InnerException?.Message ?? ex.Message
+                resultType = ResultType.Error,
+                message = defaultMessage ?? "Error occurred",
+                error = ex.InnerException?.Message ?? ex.Message
             };
 
             return context.Response.WriteAsync(JsonSerializer.Serialize(response));

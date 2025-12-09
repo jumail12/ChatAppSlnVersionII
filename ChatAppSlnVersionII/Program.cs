@@ -80,11 +80,11 @@ namespace ChatAppSlnVersionII
                               context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                               context.Response.ContentType = "application/json";
 
-                              var result = new ApiExceptionResponse
+                              var result = new 
                               {
-                                  ResultType = ResultType.UnAuthorized,
-                                  Message = "Unauthorized",
-                                  Error = "Token is missing or invalid",
+                                  resultType = ResultType.UnAuthorized,
+                                  message = "Unauthorized",
+                                  error = "Token is missing or invalid",
                               };
 
                               return context.Response.WriteAsync(
@@ -97,11 +97,11 @@ namespace ChatAppSlnVersionII
                               context.Response.StatusCode = StatusCodes.Status403Forbidden;
                               context.Response.ContentType = "application/json";
 
-                              var result = new ApiExceptionResponse
+                              var result = new 
                               {
-                                  ResultType = ResultType.Forbidden,
-                                  Message = "Access denied",
-                                  Error = "You do not have permission to access this resource",
+                                  resultType = ResultType.Forbidden,
+                                  message = "Access denied",
+                                  error = "You do not have permission to access this resource",
                               };
 
                               return context.Response.WriteAsync(
