@@ -26,4 +26,19 @@ namespace ChatAppSlnVersionII.Application.Features.Chat.Validation
                 .WithMessage(" Max members must be greater than 0 for group or channel rooms.");
         }
     }
+
+    public class CreateRoomMemberValidation : AbstractValidator<CreateRoomMemberCmd>
+    {
+        public CreateRoomMemberValidation()
+        {
+            RuleFor(x => x.rd_room_id)
+                .NotEmpty().WithMessage(" Room ID is required.");
+            RuleFor(x => x.rd_user_id)
+                .NotEmpty().WithMessage(" User ID is required.");
+            RuleFor(x => x.rd_role)
+                .NotEmpty().WithMessage(" Role is required.")
+                .Must(role => new[] {"ADMIN", "MEMBER" }.Contains(role))
+                .WithMessage(" Role must be either 'ADMIN', or 'MEMBER'.");
+        }
+    }
 }

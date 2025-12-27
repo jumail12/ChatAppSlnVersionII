@@ -13,18 +13,9 @@ namespace ChatAppSlnVersionII.Infrastructure.Persistence
 {
     public class DataAccess : IDataAccess
     {
-        //private readonly IDbConnection _dbConnection;
-        //public DataAccess(IDbConnection dbConnection)
-        //{
-        //    _dbConnection = dbConnection;
-        //}
-
-        //private IDbConnection CreateConnection()
-        //{
-        //    return _dbConnection;
-        //}
         private readonly string _connectionString;
         private readonly IConfiguration _configuration;
+
         public DataAccess(IConfiguration configuration)
         {
             _configuration = configuration;

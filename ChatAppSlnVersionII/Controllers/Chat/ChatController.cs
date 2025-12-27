@@ -18,12 +18,37 @@ namespace ChatAppSlnVersionII.Controllers.Chat
             _mediator = mediator;
         }
 
-        [HttpPost("CreateOrUpdateChatRoom")]
+        [HttpPost("CreateOrUpdate")]
         [Authorize]
         public async Task<IApiResult> CreateOrUpdateChatRoom([FromBody] CreateOrUpdateChatRoomCmd cmd)
         {
             string p_user = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             cmd.rh_created_by = p_user;
+            var result = await _mediator.Send(cmd);
+            return result;
+        }
+
+        [HttpPost("CreateMember")]
+        [Authorize]
+        public async Task<IApiResult> CreateRoomMember([FromBody] CreateRoomMemberCmd cmd)
+        {
+            string p_user = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            cmd.p_user = p_user;
+            cmd.rd_user_id = p_user;
+            var result = await _mediator.Send(cmd);
+            return result;
+        }
+
+        [HttpPost("LeaveRoom")]
+        [Authorize]
+        public async Task<IApiResult> LeaveRoom([FromQuery]string? room_id)
+        {
+            string p_user = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var cmd = new LeaveRoomMemberCmd
+            {
+                p_room_id = room_id,
+                p_user_id = p_user
+            };
             var result = await _mediator.Send(cmd);
             return result;
         }
