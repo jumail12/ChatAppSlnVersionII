@@ -15,6 +15,7 @@ namespace ChatAppSlnVersionII.Application.Dtos.UserAuth
         public string? h_user_email { get; set; }
         public string? d_avatarurl { get; set; }
         public string? d_bio { get; set; }
+        public string? role_type { get; set; }
     }
 
     public class AuthGetByUserId

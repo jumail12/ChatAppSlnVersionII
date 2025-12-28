@@ -71,8 +71,6 @@ namespace ChatAppSlnVersionII.Application.Features.UserAuth.cmdHnadlers
                 ResultType =res.Count>0? ResultType.Success : ResultType.NoData,
                 Message = res.Count > 0 ? "User authentication records fetched successfully.":"No Data",
                 Data = res,
-
-
             };
         }
     }

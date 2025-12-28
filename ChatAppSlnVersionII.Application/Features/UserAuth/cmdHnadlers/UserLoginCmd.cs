@@ -1,6 +1,7 @@
 ﻿using ChatAppSlnVersionII.Application.Dtos.Previlage;
 using ChatAppSlnVersionII.Application.Dtos.UserAuth;
 using ChatAppSlnVersionII.Application.Features.Previlage.Mapping.Query;
+using ChatAppSlnVersionII.Application.Features.UserAuth.queryHandlers;
 using ChatAppSlnVersionII.Domain.Interfaces;
 using ChatAppSlnVersionII.Shared.ApiResponses;
 using Dapper;
@@ -48,7 +49,14 @@ namespace ChatAppSlnVersionII.Application.Features.UserAuth.cmdHnadlers
             int expmin = Convert.ToInt32(_configuration["JwtSettings:ExpiryMinutes"]);
 
 
-            string accessToken = GenerateJwtToken(jwtKey, result, request.p_userEmail, expmin);
+            var resuser=await _mediator.Send(new GetUserQuery(result,""));
+            var userData=new GetUserDto();
+            if (resuser.ResultType == ResultType.Success && resuser is SucessResult<List<GetUserDto>> udata)
+            {
+                userData = udata.Data.FirstOrDefault() ?? new GetUserDto();
+            }
+
+            string accessToken = GenerateJwtToken(jwtKey, result, request.p_userEmail,userData.role_type, expmin);
             string refreshToken = GenerateRefreshToken();
 
             var getAuthbyid=await _mediator.Send(new AuthGetByUserIdQuery(result));
@@ -96,7 +104,7 @@ namespace ChatAppSlnVersionII.Application.Features.UserAuth.cmdHnadlers
             };
         }
 
-        private string GenerateJwtToken(string key, string userId, string email, int expmin = 20)
+        private string GenerateJwtToken(string key, string userId, string email,string role="User", int expmin = 20)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -105,6 +113,7 @@ namespace ChatAppSlnVersionII.Application.Features.UserAuth.cmdHnadlers
             {
               new Claim(ClaimTypes.NameIdentifier, userId),
               new Claim(ClaimTypes.Email, email),
+              new Claim(ClaimTypes.Role, role),
               new Claim("uid", userId)
             };
 

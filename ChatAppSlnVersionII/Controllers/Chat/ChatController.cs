@@ -1,4 +1,5 @@
 ﻿using ChatAppSlnVersionII.Application.Features.Chat.Cmd;
+using ChatAppSlnVersionII.Application.Features.Chat.Query;
 using ChatAppSlnVersionII.Shared.ApiResponses;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -22,8 +23,9 @@ namespace ChatAppSlnVersionII.Controllers.Chat
         [Authorize]
         public async Task<IApiResult> CreateOrUpdateChatRoom([FromBody] CreateOrUpdateChatRoomCmd cmd)
         {
-            string p_user = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var p_user = Convert.ToString(HttpContext.Items["UserId"]);
             cmd.rh_created_by = p_user;
+            cmd.rh_room_owner_id = p_user;
             var result = await _mediator.Send(cmd);
             return result;
         }
@@ -32,7 +34,7 @@ namespace ChatAppSlnVersionII.Controllers.Chat
         [Authorize]
         public async Task<IApiResult> CreateRoomMember([FromBody] CreateRoomMemberCmd cmd)
         {
-            string p_user = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var p_user = Convert.ToString(HttpContext.Items["UserId"]);
             cmd.p_user = p_user;
             cmd.rd_user_id = p_user;
             var result = await _mediator.Send(cmd);
@@ -41,15 +43,38 @@ namespace ChatAppSlnVersionII.Controllers.Chat
 
         [HttpPost("LeaveRoom")]
         [Authorize]
-        public async Task<IApiResult> LeaveRoom([FromQuery]string? room_id)
+        public async Task<IApiResult> LeaveRoom([FromQuery] string? room_id)
         {
-            string p_user = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var p_user = Convert.ToString(HttpContext.Items["UserId"]);
             var cmd = new LeaveRoomMemberCmd
             {
                 p_room_id = room_id,
                 p_user_id = p_user
             };
             var result = await _mediator.Send(cmd);
+            return result;
+        }
+
+        [HttpPost("BanRoomMember")]
+        [Authorize]
+        public async Task<IApiResult> BanRoomMember([FromQuery] string? room_id, [FromQuery] string? member_id)
+        {
+            var p_admin = Convert.ToString(HttpContext.Items["UserId"]);
+            var cmd = new BanRoomMemberByAdminCmd
+            {
+                p_room_id = room_id,
+                p_owner_id = member_id,
+                p_user_id = p_admin
+            };
+            var result = await _mediator.Send(cmd);
+            return result;
+        }
+
+        [HttpGet("roomDetails")]
+        [Authorize]
+        public async Task<IApiResult> GetRoomDetails([FromQuery] string? room_id)
+        {
+            var result = await _mediator.Send(new GetRoomHdDetailQuery(room_id));
             return result;
         }
     }

@@ -20,8 +20,4 @@
     <ProjectReference Include="..\ChatAppSlnVersionII.Shared\ChatAppSlnVersionII.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Chat\Query\" />
-  </ItemGroup>
-
 </Project>
