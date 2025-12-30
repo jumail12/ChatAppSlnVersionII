@@ -9,7 +9,6 @@ namespace ChatAppSlnVersionII.Application.Features.Chat.Query
 {
     public record GetRoomHdDetailQuery(string? p_room_id) : IRequest<IApiResult>;
 
-
     public class GetRoomHdDetailQueryHandler : IRequestHandler<GetRoomHdDetailQuery, IApiResult>
     {
         private readonly IDataAccess _dataAccess;

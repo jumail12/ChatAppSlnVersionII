@@ -57,14 +57,14 @@ namespace ChatAppSlnVersionII.Controllers.Chat
 
         [HttpPost("BanRoomMember")]
         [Authorize]
-        public async Task<IApiResult> BanRoomMember([FromQuery] string? room_id, [FromQuery] string? member_id)
+        public async Task<IApiResult> BanRoomMember([FromQuery] string? room_id, [FromQuery] string? user_id)
         {
             var p_admin = Convert.ToString(HttpContext.Items["UserId"]);
             var cmd = new BanRoomMemberByAdminCmd
             {
                 p_room_id = room_id,
-                p_owner_id = member_id,
-                p_user_id = p_admin
+                p_owner_id = p_admin,
+                p_user_id = user_id
             };
             var result = await _mediator.Send(cmd);
             return result;
@@ -75,6 +75,14 @@ namespace ChatAppSlnVersionII.Controllers.Chat
         public async Task<IApiResult> GetRoomDetails([FromQuery] string? room_id)
         {
             var result = await _mediator.Send(new GetRoomHdDetailQuery(room_id));
+            return result;
+        }
+
+        [HttpGet("roomHeaders")]
+        //[Authorize]
+        public async Task<IApiResult> GetRoomDetails([FromQuery] GetRoomHeadersQuery getRoom)
+        {
+            var result = await _mediator.Send(getRoom);
             return result;
         }
     }
