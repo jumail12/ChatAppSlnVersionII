@@ -24,9 +24,11 @@ namespace ChatAppSlnVersionII.Application.Features.Chat.Cmd
     public class CreateOrUpdateChatRoomCmdHandler : IRequestHandler<CreateOrUpdateChatRoomCmd, IApiResult>
     {
         private readonly IDataAccess _dataAccess;
-        public CreateOrUpdateChatRoomCmdHandler(IDataAccess dataAccess)
+        private readonly IMediator _mediator;
+        public CreateOrUpdateChatRoomCmdHandler(IDataAccess dataAccess, IMediator mediator)
         {
             _dataAccess = dataAccess;
+            _mediator = mediator;
         }
 
         public async Task<IApiResult> Handle(CreateOrUpdateChatRoomCmd request, CancellationToken cancellationToken)
@@ -43,6 +45,19 @@ namespace ChatAppSlnVersionII.Application.Features.Chat.Cmd
 
             var psql= "select sf_create_or_update_chatroom(@p_rh_room_id, @p_rh_room_name,@p_rh_room_type,@p_rh_room_owner_id,@p_rh_room_description,@p_rh_room_avatar_url,@p_rh_max_members,@p_user);";
             var res = await _dataAccess.ExecuteScalarAsync<string>(psql, para, false);
+
+            // Notify all clients about the new room creation
+            await _mediator.Publish(new Events.ChatRoomCreatedEvent
+            {
+                rh_room_id = res,
+                rh_room_name = request.rh_room_name,
+                rh_room_type = request.rh_room_type,
+                rh_room_owner_id = request.rh_room_owner_id,
+                rh_room_description = request.rh_room_description,
+                rh_room_avatar_url = request.rh_room_avatar_url,
+                rh_max_members = request.rh_max_members,
+                rh_is_active = request.rh_is_active,
+            }, cancellationToken);
 
             return new SucessResult<string>(res)
             {

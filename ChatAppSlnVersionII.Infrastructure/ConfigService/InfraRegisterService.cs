@@ -1,17 +1,9 @@
 ﻿using ChatAppSlnVersionII.Domain.Interfaces;
-using ChatAppSlnVersionII.Infrastructure.Common;
-using ChatAppSlnVersionII.Infrastructure.Common.ChatAppSlnVersionII.Infrastructure.ConfigService;
 using ChatAppSlnVersionII.Infrastructure.Persistence;
-using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Npgsql;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
+
 
 namespace ChatAppSlnVersionII.Infrastructure.ConfigService
 {
@@ -19,18 +11,13 @@ namespace ChatAppSlnVersionII.Infrastructure.ConfigService
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            //var dbSettingsSection = configuration.GetSection("DatabaseSettings");
-            //services.Configure<DatabaseSettings>(dbSettingsSection);
-
-            //var dbSettings = dbSettingsSection.Get<DatabaseSettings>() ?? new DatabaseSettings();
-            //services.AddSingleton(dbSettings);
-
-            //var connectionString = dbSettings.BuildConnectionString();
-
-            //var connectionString = configuration.GetConnectionString("SupabaseDb");
-
-            //services.AddScoped<IDbConnection>(_ => new NpgsqlConnection(connectionString));
             services.AddScoped<IDataAccess, DataAccess>();
+
+            services.AddSignalR();
+            services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+            });
             return services;
         }
     }

@@ -1,6 +1,7 @@
 ﻿
 using ChatAppSlnVersionII.Application.ConfigService;
 using ChatAppSlnVersionII.Infrastructure.ConfigService;
+using ChatAppSlnVersionII.Infrastructure.SignalR.Hubs;
 using ChatAppSlnVersionII.Middlewares;
 using ChatAppSlnVersionII.Shared.ApiResponses;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -135,6 +136,7 @@ namespace ChatAppSlnVersionII
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseMiddleware<AuthUserMiddleware>();
+            app.MapHub<ChatHub>("/chatHub");
             app.MapControllers();
             app.Run();
         }
