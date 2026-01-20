@@ -120,7 +120,8 @@ namespace ChatAppSlnVersionII
                 {
                     policy.WithOrigins(corsOrigins!)
                           .AllowAnyHeader()
-                          .AllowAnyMethod();
+                          .AllowAnyMethod()
+                           .AllowCredentials(); // 🔥 must;
                 });
             });
 
