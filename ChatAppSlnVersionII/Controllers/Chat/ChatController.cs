@@ -3,9 +3,7 @@ using ChatAppSlnVersionII.Application.Features.Chat.Query;
 using ChatAppSlnVersionII.Shared.ApiResponses;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace ChatAppSlnVersionII.Controllers.Chat
 {
@@ -79,10 +77,18 @@ namespace ChatAppSlnVersionII.Controllers.Chat
         }
 
         [HttpGet("roomHeaders")]
-        //[Authorize]
         public async Task<IApiResult> GetRoomDetails([FromQuery] GetRoomHeadersQuery getRoom)
         {
             var result = await _mediator.Send(getRoom);
+            return result;
+        }
+
+        [HttpGet("IsRoomMemberExists")]
+        [Authorize]
+        public async Task<IApiResult> IsRoomMemberExists([FromQuery] string? room_id)
+        {
+            var p_user = Convert.ToString(HttpContext.Items["UserId"]);
+            var result = await _mediator.Send(new IsRoomMemberExistsQuery(room_id, p_user));
             return result;
         }
     }

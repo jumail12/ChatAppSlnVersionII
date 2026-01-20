@@ -46,7 +46,6 @@ namespace ChatAppSlnVersionII.Application.Features.Chat.Cmd
             var psql= "select sf_create_or_update_chatroom(@p_rh_room_id, @p_rh_room_name,@p_rh_room_type,@p_rh_room_owner_id,@p_rh_room_description,@p_rh_room_avatar_url,@p_rh_max_members,@p_user);";
             var res = await _dataAccess.ExecuteScalarAsync<string>(psql, para, false);
 
-            // Notify all clients about the new room creation
             await _mediator.Publish(new Events.ChatRoomCreatedEvent
             {
                 rh_room_id = res,

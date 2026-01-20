@@ -121,7 +121,7 @@ namespace ChatAppSlnVersionII
                     policy.WithOrigins(corsOrigins!)
                           .AllowAnyHeader()
                           .AllowAnyMethod()
-                           .AllowCredentials(); // 🔥 must;
+                           .AllowCredentials();
                 });
             });
 
