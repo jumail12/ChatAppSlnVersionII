@@ -41,4 +41,36 @@ namespace ChatAppSlnVersionII.Application.Features.Chat.Validation
                 .WithMessage(" Role must be either 'ADMIN', or 'MEMBER'.");
         }
     }
+
+
+    public class CreateRoomMSGValidation : AbstractValidator<CreateMSGCmd>
+    {
+        public CreateRoomMSGValidation()
+        {
+            RuleFor(x => x.cm_room_id)
+                .NotEmpty()
+                .WithMessage("Room ID is required.");
+
+            RuleFor(x => x.cm_sender_id)
+                .NotEmpty()
+                .WithMessage("User ID is required.");
+
+            RuleFor(x => x.cm_message_type)
+                .NotEmpty()
+                .WithMessage("Message type is required.")
+                .Must(type => new[] { "TEXT", "URL" }.Contains(type))
+                .WithMessage("Message type must be 'TEXT' or 'URL'.");
+
+            RuleFor(x => x.cm_message_text)
+                .NotEmpty()
+                .WithMessage("Message text cannot be empty for TEXT type.")
+                .When(x => x.cm_message_type == "TEXT");
+
+            RuleFor(x => x.cm_media_url)
+                .NotEmpty()
+                .WithMessage("Media URL is required for URL type.")
+                .When(x => x.cm_message_type == "URL");
+        }
+    }
+
 }
