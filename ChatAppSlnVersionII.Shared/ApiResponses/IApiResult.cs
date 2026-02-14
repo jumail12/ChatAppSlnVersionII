@@ -31,17 +31,23 @@ namespace ChatAppSlnVersionII.Shared.ApiResponses
 
     public class PaginatedApiExeResult<T> : IApiResult
     {
+        public PaginatedApiExeResult(T resultData)
+        {
+            ResultData = new PaginationResultData<T>
+            {
+                Data = resultData
+            };
+        }
         public ResultType ResultType { get; set; }
         public string Message { get; set; }
-        public int StatusCode { get; set; }
-        public PaginationResultData<T>? ResultData { get; set; }
-
+        public PaginationResultData<T> ResultData { get; set; }
     }
+
     public class PaginationResultData<T>
     {
         public int PageNo { get; set; } = 0;
         public int PageSize { get; set; } = 0;
-        public T? Data { get; set; }
+        public T Data { get; set; }
     }
 
     public class FetchApiExeResult<T> : IApiResult
