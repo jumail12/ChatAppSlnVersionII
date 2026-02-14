@@ -61,11 +61,11 @@ namespace ChatAppSlnVersionII.Application.Features.Chat.Query
             {
                ResultType = ResultType.Success,
                Message = "Messages retrieved successfully",
-               ResultData=new PaginationResultData<RESMSGFinalDto>
+               Data=new PaginationResultData<RESMSGFinalDto>
                {
                      PageNo=request.page,
                      PageSize=res.FirstOrDefault().v_total_pages??0,
-                     Data= fRes
+                     Items= fRes
                },
             };
         }
