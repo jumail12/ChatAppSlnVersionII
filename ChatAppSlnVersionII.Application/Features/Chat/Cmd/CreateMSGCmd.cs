@@ -72,7 +72,7 @@ namespace ChatAppSlnVersionII.Application.Features.Chat.Cmd
                 ResultType = ResultType.Success,
                 Message = "Message created successfully",
                 Data = res,
-            });
+            };
 
             return sres;
         }
