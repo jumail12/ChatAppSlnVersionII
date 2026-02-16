@@ -47,6 +47,7 @@ namespace ChatAppSlnVersionII.Shared.ApiResponses
     {
         public int PageNo { get; set; } = 0;
         public int PageSize { get; set; } = 0;
+        public int totalPages { get; set; }
         public T Items { get; set; }
     }
 

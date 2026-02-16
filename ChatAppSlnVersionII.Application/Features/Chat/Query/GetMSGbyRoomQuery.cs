@@ -57,6 +57,8 @@ namespace ChatAppSlnVersionII.Application.Features.Chat.Query
                 user = request.user
             };
 
+            var  totalpages= res.FirstOrDefault()?.total_pages??0;
+
             return new PaginatedApiExeResult<RESMSGFinalDto>(fRes)
             {
                ResultType = ResultType.Success,
@@ -64,8 +66,9 @@ namespace ChatAppSlnVersionII.Application.Features.Chat.Query
                Data=new PaginationResultData<RESMSGFinalDto>
                {
                      PageNo=request.page,
-                     PageSize=res.FirstOrDefault().v_total_pages??0,
-                     Items= fRes
+                     totalPages= totalpages,
+                     PageSize =request.pagesize,  
+                     Items = fRes
                },
             };
         }

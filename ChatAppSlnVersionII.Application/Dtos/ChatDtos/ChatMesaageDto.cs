@@ -18,8 +18,8 @@ namespace ChatAppSlnVersionII.Application.Dtos.ChatDtos
         public DateTime? cm_created_at { get; set; }
         public bool? is_admin { get; set; }
         public string? h_user_name { get; set; }
-        public int? v_total_records { get; set; }
-        public int? v_total_pages { get; set; }
+        public int? total_records { get; set; }
+        public int? total_pages { get; set; }
     }
 
     public class ResChatMesaageDto
