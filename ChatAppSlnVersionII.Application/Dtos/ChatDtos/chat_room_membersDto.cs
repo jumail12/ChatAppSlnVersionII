@@ -30,6 +30,8 @@ namespace ChatAppSlnVersionII.Application.Dtos.ChatDtos
         public int? rh_max_members { get; set; }
 
         public bool rh_is_active { get; set; }
+        public int rh_total_active_members { get; set; } = 0;
+        
     }
 
     public class RoomDetailResponseDto
